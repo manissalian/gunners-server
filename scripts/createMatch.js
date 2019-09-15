@@ -1,7 +1,7 @@
 const nano = require('nano')('http://localhost:5984')
 const gunnersDb = nano.use('gunners')
 
-const match = require('../data/match.js')
+const match = require('../data/unplayed_match.js')
 
 const playerNumbers = match.players
 const subNumbers = match.subs

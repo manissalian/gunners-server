@@ -54,5 +54,23 @@ module.exports = {
     }).then(body => {
       res.send(body)
     })
+  },
+
+  getNext: (req, res, next) => {
+    gunnersDb.view('match', 'byOpponent', {
+      include_docs: true
+    }).then(body => {
+      const rows = body.rows
+
+      rows.sort((rowA, rowB) => {
+        return new Date(rowA.doc.date) - new Date(rowB.doc.date)
+      })
+
+      const unplayedMatches = rows.filter(row => {
+        return row.doc.result == null
+      })
+
+      res.send(unplayedMatches[0])
+    })
   }
 }
