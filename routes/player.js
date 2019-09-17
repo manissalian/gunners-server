@@ -33,5 +33,22 @@ module.exports = {
     }).then(body => {
       res.send(body)
     })
+  },
+
+  getById: (req, res, next) => {
+    const id = req.query.id
+
+    if (!id) {
+      res.status(400).send('Make sure to pass player ID')
+      return
+    }
+
+    gunnersDb.get(id, {
+      include_docs: true
+    }).then(body => {
+      res.send(body)
+    }).catch(err => {
+      res.send(err.message)
+    })
   }
 }
