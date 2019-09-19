@@ -8,6 +8,7 @@ const cors = require('cors')
 const match = require('./routes/match.js')
 const player = require('./routes/player.js')
 const podium = require('./routes/podium.js')
+const leagueTable = require('./routes/leagueTable.js')
 
 app.use(logger('dev'))
 app.use(express.json())
@@ -26,5 +27,8 @@ app.post('/player/create', player.create)
 
 app.get('/podium/goals', podium.getGoals)
 app.get('/podium/assists', podium.getAssists)
+
+app.get('/leagueTable', leagueTable.get)
+app.post('/leagueTable/update', leagueTable.update)
 
 module.exports = app
