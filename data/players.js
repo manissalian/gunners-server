@@ -13,7 +13,7 @@ module.exports = [{
 {
   name: 'Kieran Tierney',
   number: 3,
-  asset: null,
+  asset: 'tierney.png',
   status: 'active'
 },
 {
@@ -158,5 +158,11 @@ module.exports = [{
   name: 'Gabriel Martinelli',
   number: 35,
   asset: 'martinelli.png',
+  status: 'active'
+},
+{
+  name: 'Bukayo Saka',
+  number: 77,
+  asset: 'saka.png',
   status: 'active'
 }];
