@@ -6,7 +6,7 @@ module.exports = {
     const {
       players,
       subs,
-      teamGoals,
+      goals,
       opponent,
       result,
       ground,
@@ -19,27 +19,21 @@ module.exports = {
       return
     }
 
-    if (!opponent.name || !opponent.asset) {
-      res.status(400).send('opponent must be of format: { name: string, asset: string }')
+    if (!opponent.title || !opponent.asset) {
+      res.status(400).send('opponent must be of format: { title: string, asset: string }')
       return 
     }
 
     const params = {
       type: 'match',
-      players: players || [],
-      subs: subs || [],
-      teamGoals: teamGoals || [],
-      opponent: {
-        ...opponent,
-        goals: 0
-      },
-      result: result || null,
-      ground: {
-        type: ground && ground.type || null,
-        name: ground && ground.name || null
-      },
+      players,
+      subs,
+      goals,
+      opponent,
+      result,
+      ground,
       tournament,
-      date: date || null
+      date
     }
 
     gunnersDb.insert(params)
