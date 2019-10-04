@@ -21,6 +21,7 @@ app.get('/match/all', match.getAll)
 app.get('/match/next', match.getNext)
 app.post('/match/create', match.create)
 app.post('/match/update', match.update)
+app.delete('/match/delete', match.delete)
 app.get('/match/:id', match.getById)
 
 app.get('/player/all', player.getAll)

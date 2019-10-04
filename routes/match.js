@@ -36,6 +36,23 @@ module.exports = {
     })
   },
 
+  delete: (req, res, next) => {
+    const {
+      _id,
+      _rev
+    } = req.body
+
+    gunnersDb.destroy(
+      _id,
+      _rev
+    ).then(body => {
+      console.log('match deleted!')
+      res.send({
+        success: body.ok
+      })
+    })
+  },
+
   getAll: (req, res, next) => {
     gunnersDb.view('match', 'byOpponent', {
       include_docs: true
