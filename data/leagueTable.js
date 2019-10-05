@@ -1,5 +1,5 @@
 module.exports = {
-  type: 'leagueTable',
+  _id: 'leagueTable',
   teams: [
     {
       name: 'Arsenal',

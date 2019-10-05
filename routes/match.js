@@ -1,6 +1,8 @@
 const nano = require('nano')('http://localhost:5984')
 const gunnersDb = nano.use('gunners')
 
+const fs = require('fs')
+
 module.exports = {
   create: (req, res, next) => {
     const params = getPostParams(req, res)
@@ -9,7 +11,38 @@ module.exports = {
 
     gunnersDb.insert(params)
     .then(body => {
-      res.send(body)
+      const opponentAsset = req.body.opponentAsset
+
+      if (opponentAsset) {
+        const {
+          path,
+          type
+        } = opponentAsset
+
+        fs.readFile(path, (err, data) => {
+          if (!data) res.send(body)
+
+          const {
+            id,
+            rev
+          } = body
+          const attachmentName = 'opponentLogo'
+          gunnersDb.attachment.insert(
+            id,
+            attachmentName,
+            data,
+            type,
+            {
+              rev
+            })
+          .then(attachmentBody => {
+            fs.unlinkSync(path)
+            res.send(body)
+          })
+        })
+      } else {
+        res.send(body)
+      }
     })
   },
 
@@ -29,10 +62,38 @@ module.exports = {
       ...params
     })
     .then(body => {
-      console.log('match updated!')
-      res.send({
-        success: body.ok
-      })
+      const opponentAsset = req.body.opponentAsset
+
+      if (opponentAsset) {
+        const {
+          path,
+          type
+        } = opponentAsset
+
+        fs.readFile(path, (err, data) => {
+          if (!data) res.send(body)
+
+          const {
+            id,
+            rev
+          } = body
+          const attachmentName = 'opponentLogo'
+          gunnersDb.attachment.insert(
+            id,
+            attachmentName,
+            data,
+            type,
+            {
+              rev
+            })
+          .then(attachmentBody => {
+            fs.unlinkSync(path)
+            res.send(body)
+          })
+        })
+      } else {
+        res.send(body)
+      }
     })
   },
 
@@ -46,7 +107,6 @@ module.exports = {
       _id,
       _rev
     ).then(body => {
-      console.log('match deleted!')
       res.send({
         success: body.ok
       })
@@ -108,11 +168,6 @@ const getPostParams = (req, res) => {
 
     if (!opponent || !tournament) {
       res.status(400).send('Make sure to pass opponent and tournament')
-      return
-    }
-
-    if (!opponent.title || !opponent.asset) {
-      res.status(400).send('opponent must be of format: { title: string, asset: string }')
       return
     }
 
