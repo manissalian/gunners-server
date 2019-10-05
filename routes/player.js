@@ -36,12 +36,7 @@ module.exports = {
   },
 
   getById: (req, res, next) => {
-    const id = req.query.id
-
-    if (!id) {
-      res.status(400).send('Make sure to pass player ID')
-      return
-    }
+    const id = req.params.id
 
     gunnersDb.get(id, {
       include_docs: true

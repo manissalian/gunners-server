@@ -139,6 +139,20 @@ module.exports = {
     })
   },
 
+  byPlayerId: (req, res, next) => {
+    const id = req.params.id
+
+    gunnersDb.view('match', 'byOpponent', {
+      include_docs: true
+    }).then(body => {
+      const rows = body.rows
+      const filteredRows = rows.filter(row => {
+        return row.doc.players.includes(id) || row.doc.subs.includes(id)
+      })
+      res.send(filteredRows)
+    })
+  },
+
   getById: (req, res, next) => {
     const id = req.params.id
 
