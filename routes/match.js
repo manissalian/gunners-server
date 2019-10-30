@@ -53,12 +53,14 @@ module.exports = {
 
     const {
       _id,
-      _rev
+      _rev,
+      _attachments
     } = req.body
 
     gunnersDb.insert({
       _id,
       _rev,
+      _attachments,
       ...params
     })
     .then(body => {
@@ -69,6 +71,11 @@ module.exports = {
           path,
           type
         } = opponentAsset
+
+        if (!path || !type) {
+          res.send(body)
+          return
+        }
 
         fs.readFile(path, (err, data) => {
           if (!data) res.send(body)
