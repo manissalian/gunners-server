@@ -32,12 +32,14 @@ module.exports = {
     }).then(body => {
       const {
         _id,
-        _rev
+        _rev,
+        _attachments
       } = body
 
       gunnersDb.insert({
         _id,
         _rev,
+        _attachments,
         teams
       })
       .then(body => {
