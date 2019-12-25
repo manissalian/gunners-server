@@ -11,6 +11,7 @@ const podium = require('./routes/podium.js')
 const leagueTable = require('./routes/leagueTable.js')
 const upload = require('./routes/upload.js')
 const asset = require('./routes/asset.js')
+const stats = require('./routes/stats.js')
 
 app.use(logger('dev'))
 app.use(express.json())
@@ -40,5 +41,7 @@ app.post('/leagueTable/update', leagueTable.update)
 app.post('/upload/file', upload.file)
 
 app.get('/asset/:id', asset.getById)
+
+app.get('/stats/table', stats.getTable)
 
 module.exports = app
