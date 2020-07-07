@@ -71,6 +71,12 @@ module.exports = [{
   status: 'active'
 },
 {
+  name: 'Cédric Soares',
+  number: 17,
+  asset: 'cedric.png',
+  status: 'active'
+},
+{
   name: 'Nacho Monreal',
   number: 18,
   asset: 'monreal.png',
@@ -92,6 +98,12 @@ module.exports = [{
   name: 'Calum Chambers',
   number: 21,
   asset: 'chambers.png',
+  status: 'active'
+},
+{
+  name: 'Pablo Marí',
+  number: 22,
+  asset: 'mari.png',
   status: 'active'
 },
 {
@@ -128,6 +140,12 @@ module.exports = [{
   name: 'Matteo Guendouzi',
   number: 29,
   asset: 'guendouzi.png',
+  status: 'active'
+},
+{
+  name: 'Eddie Nketiah',
+  number: 30,
+  asset: 'nketiah.png',
   status: 'active'
 },
 {
